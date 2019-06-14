@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
-import rootReducer from './reducers';
+import rootReducer from './ducks';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { initialRootState } from './reducers';
+import { initialRootState } from './ducks';
 
 const store = createStore(rootReducer, initialRootState, composeWithDevTools());
 
