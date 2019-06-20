@@ -1,4 +1,4 @@
-function mockProfileFetch(forceResolve = true, timeoutDuration = 1000): Promise<any> {
+function mockProfileFetch(forceReject = false, timeoutDuration = 1000): Promise<any> {
   return new Promise((resolve, reject) => {
     const responseData = {
       username: 'msoyka',
@@ -7,7 +7,7 @@ function mockProfileFetch(forceResolve = true, timeoutDuration = 1000): Promise<
       avatarURL: 'https://picsum.photos/200/300?random=1',
     };
     setTimeout(() => {
-      if (!forceResolve) {
+      if (forceReject) {
         reject('Error: mockFetch was forced to fail.');
       }
       resolve(responseData);

@@ -4,7 +4,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 
 import { IState as IProfileState } from './data/ducks/profile';
 import { loginProfileAction, logoutProfileAction } from './data/ducks/profile/actions';
-// import { IUserProfile } from './data/ducks/profile/models/userProfile';
+import { IUserProfile } from './data/ducks/profile/models/userProfile';
 
 interface IProps {}
 
@@ -17,6 +17,14 @@ interface IDispatchProps {
 
 type ICombinedProps = IProps & IStoreProps & IDispatchProps;
 
+// const ProfileCard = ({ username, firstName, lastName }: IUserProfile) => (
+//   <div>
+//     <h2>User Profile Info</h2>
+//     <h3>{username}</h3>
+//     <p>{`${firstName} ${lastName}`}</p>
+//   </div>
+// );
+
 const Button = ({ loading, data, error, login, logout }: ICombinedProps) => {
   const handleLogin = () => {
     login();
@@ -25,12 +33,12 @@ const Button = ({ loading, data, error, login, logout }: ICombinedProps) => {
   const handleLogout = () => {
     logout();
   };
-
+  console.log('data:', data);
   return (
     <>
       {loading && <p>Is Loading</p>}
       {error && <p>Is error</p>}
-      {data && <p>Welcome {data.firstName}!</p>}
+      {data && <p>Profile Loaded</p>}
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleLogout}>Logout</button>
     </>
