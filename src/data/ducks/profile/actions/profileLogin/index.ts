@@ -1,6 +1,8 @@
-import IUserProfile from '../models/userProfile';
-import mockProfileFetch from '../mockApi';
 import { Dispatch } from 'redux';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+
+import API_CONFIG from 'api/api-config';
+import IProfile from 'common/api-models/IProfile';
 
 // Action Types
 export const PROFILE_LOGIN_STARTED = 'profile/PROFILE_LOGIN_STARTED';
@@ -8,7 +10,7 @@ export const PROFILE_LOGIN_ERROR = 'profile/PROFILE_LOGIN_ERROR';
 export const PROFILE_LOGIN_SUCCESS = 'profile/PROFILE_LOGIN_SUCCESS';
 export const PROFILE_LOGIN_FINISHED = 'profile/PROFILE_LOGIN_FINISHED';
 
-// Models
+// Action Creator Models
 export interface IProfileLoginActionStarted {
   type: typeof PROFILE_LOGIN_STARTED;
 }
@@ -19,15 +21,15 @@ export interface IProfileLoginActionFinished {
 
 export interface IProfileLoginActionError {
   type: typeof PROFILE_LOGIN_ERROR;
-  payload: string | boolean;
+  payload: AxiosError;
 }
 
 export interface IProfileLoginActionSuccess {
   type: typeof PROFILE_LOGIN_SUCCESS;
-  payload: IUserProfile;
+  payload: IProfile;
 }
 
-// Simple Actions
+// Action Creators
 export const profileLoginActionStarted = (): IProfileLoginActionStarted => ({
   type: PROFILE_LOGIN_STARTED,
 });
@@ -36,26 +38,29 @@ export const profileLoginActionFinished = (): IProfileLoginActionFinished => ({
   type: PROFILE_LOGIN_FINISHED,
 });
 
-export const profileLoginActionError = (errorMessage: string | boolean): IProfileLoginActionError => ({
+export const profileLoginActionError = (error: AxiosError): IProfileLoginActionError => ({
   type: PROFILE_LOGIN_ERROR,
-  payload: errorMessage,
+  payload: error,
 });
 
-export const profileLoginActionSuccess = (profile: IUserProfile): IProfileLoginActionSuccess => ({
+export const profileLoginActionSuccess = (profile: IProfile): IProfileLoginActionSuccess => ({
   type: PROFILE_LOGIN_SUCCESS,
   payload: profile,
 });
 
-// Async Thunk Actions
+// Async Thunk Action Creators
 export const loginProfileAction = () => {
   return (dispatch: Dispatch) => {
+    // Signal dispatch start
     dispatch(profileLoginActionStarted());
-    mockProfileFetch()
-      .then((res: any) => {
-        dispatch(profileLoginActionSuccess(res));
+    // Make API Request
+    axios
+      .get(API_CONFIG.PROFILE.GET)
+      .then((res: AxiosResponse) => {
+        dispatch(profileLoginActionSuccess(res.data));
       })
-      .catch((err: any) => {
-        dispatch(profileLoginActionError(err));
+      .catch((error: AxiosError) => {
+        return dispatch(profileLoginActionError(error));
       })
       .finally(() => dispatch(profileLoginActionFinished()));
   };

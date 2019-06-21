@@ -1,20 +1,30 @@
-import { IUserProfile } from './models/index';
+import { AxiosError } from 'axios';
+import { IProfile } from 'common/api-models';
 import * as ProfileActions from './actions';
 
+// Profile Inital State Model
 export interface IState {
-  data?: IUserProfile | null;
+  data: IProfile | null;
   loading: boolean;
-  error?: boolean | string;
+  error: AxiosError | boolean;
 }
 
+// Profile Initial State
 export const initialState: IState = {
   data: null,
   loading: false,
   error: false,
 };
 
-type IActionTypes = any;
+// NOTE: Add action types
+type IActionTypes =
+  | ProfileActions.IProfileLoginActionSuccess
+  | ProfileActions.IProfileLoginActionStarted
+  | ProfileActions.IProfileLoginActionFinished
+  | ProfileActions.IProfileLoginActionError
+  | ProfileActions.IProfileLogoutAction;
 
+// Reducer
 const profileReducer = (state = initialState, action: IActionTypes) => {
   switch (action.type) {
     case ProfileActions.PROFILE_LOGIN_STARTED:
@@ -28,6 +38,7 @@ const profileReducer = (state = initialState, action: IActionTypes) => {
         ...state,
         data: action.payload,
       };
+
     case ProfileActions.PROFILE_LOGIN_FINISHED:
       return {
         ...state,

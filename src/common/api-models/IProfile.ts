@@ -1,8 +1,8 @@
-export interface IUserProfile {
+export interface IProfile {
   readonly username: string;
   readonly firstName: string;
   readonly lastName: string;
   readonly avatarURL: string;
 }
 
-export default IUserProfile;
+export default IProfile;
