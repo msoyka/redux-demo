@@ -7,14 +7,14 @@ import * as serviceWorker from './serviceWorker';
 
 // START - REDUX FILES
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from './data/store';
 /// END - REDUX FILES
 
 render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root'),
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
