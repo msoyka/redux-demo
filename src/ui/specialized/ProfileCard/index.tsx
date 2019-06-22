@@ -21,9 +21,6 @@ const useStyles = makeStyles(
       width: 60,
       height: 60,
     },
-    title: {
-      fontSize: 14,
-    },
     username: {
       marginBottom: 12,
     },
@@ -35,9 +32,6 @@ const ProfileCard = ({ profile: { username, firstName, lastName, avatarURL } }: 
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          User Profile
-        </Typography>
         <Avatar alt="User Avatar" src={avatarURL} className={classes.avatar} />
         <Typography variant="h5" component="h2">
           {`${firstName} ${lastName}`}

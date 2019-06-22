@@ -6,14 +6,14 @@ import * as ProfileActions from './actions';
 export interface IState {
   data: IProfile | null;
   loading: boolean;
-  error: AxiosError | boolean;
+  error: AxiosError | null;
 }
 
 // Profile Initial State
 export const initialState: IState = {
   data: null,
   loading: false,
-  error: false,
+  error: null,
 };
 
 // NOTE: Add action types
@@ -31,7 +31,7 @@ const profileReducer = (state = initialState, action: IActionTypes) => {
       return {
         ...state,
         loading: true,
-        error: false,
+        error: null,
       };
     case ProfileActions.PROFILE_LOGIN_SUCCESS:
       return {
