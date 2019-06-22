@@ -1,1 +1,1 @@
-export { default } from './ProfileAuth'
+export { default } from './ProfileAuth';

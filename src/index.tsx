@@ -1,13 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 
+import ReduxProvider from 'ReduxProvider';
 import Login from 'pages/Login';
-import store from 'data/store';
 
 render(
-  <Provider store={store}>
+  <ReduxProvider>
     <Login />
-  </Provider>,
+  </ReduxProvider>,
   document.getElementById('root'),
 );

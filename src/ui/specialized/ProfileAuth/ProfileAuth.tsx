@@ -10,12 +10,16 @@ import { loginProfileAction, logoutProfileAction } from 'data/profile/actions';
 import ProfileCard from 'ui/specialized/ProfileCard';
 import ProgressIndicator from 'ui/generic/ProgressIndicator';
 import ErrorSnackbar from 'ui/generic/ErrorSnackbar';
-import {getProfile, getProfileLoading, getProfileError} from 'data/profile/selectors'
+import {
+  getProfile,
+  getProfileLoading,
+  getProfileError,
+} from 'data/profile/selectors';
 
 interface IStoreProps {
-  profileError: IProfileState["error"],
-  profile: IProfileState["data"],
-  profileLoading: IProfileState["loading"]
+  profileError: IProfileState['error'];
+  profile: IProfileState['data'];
+  profileLoading: IProfileState['loading'];
 }
 
 interface IDispatchProps {
@@ -33,7 +37,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ProfileAuth = ({ profileLoading, profile, profileError, loginProfile, logoutProfile }: ICombinedProps) => {
+const ProfileAuth = ({
+  profileLoading,
+  profile,
+  profileError,
+  loginProfile,
+  logoutProfile,
+}: ICombinedProps) => {
   const classes = useStyles();
 
   return (
@@ -43,10 +53,22 @@ const ProfileAuth = ({ profileLoading, profile, profileError, loginProfile, logo
       {profile && <ProfileCard profile={profile} />}
 
       <div>
-        <Button disabled={profile !== null} variant="contained" color="primary" className={classes.button} onClick={loginProfile}>
+        <Button
+          disabled={profile !== null}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={loginProfile}
+        >
           Login
         </Button>
-        <Button disabled={!profile} variant="contained" color="secondary" className={classes.button} onClick={logoutProfile}>
+        <Button
+          disabled={!profile}
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          onClick={logoutProfile}
+        >
           Logout
         </Button>
       </div>
@@ -55,10 +77,10 @@ const ProfileAuth = ({ profileLoading, profile, profileError, loginProfile, logo
 };
 
 const mapStateToProps = (state: IRootState) => {
-  return { 
-    profile:  getProfile(state),
+  return {
+    profile: getProfile(state),
     profileLoading: getProfileLoading(state),
-    profileError: getProfileError(state)
+    profileError: getProfileError(state),
   };
 };
 

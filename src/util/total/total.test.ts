@@ -1,4 +1,4 @@
-import { total } from 'util/total';
+import total from '.';
 
 test('total', () => {
   const value = total(5, 20);

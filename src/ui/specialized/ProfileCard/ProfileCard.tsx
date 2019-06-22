@@ -15,6 +15,7 @@ const useStyles = makeStyles(
   createStyles({
     card: {
       minWidth: 275,
+      maxWidth: 500,
     },
     avatar: {
       margin: 10,

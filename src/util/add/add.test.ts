@@ -1,4 +1,4 @@
-import add from 'util/add';
+import add from '.';
 
 test('add', () => {
   const value = add(1, 2);
