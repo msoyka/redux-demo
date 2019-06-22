@@ -1,5 +1,1 @@
-export const add = (x: number, y: number) => {
-  return x + y;
-};
-
-export default add;
+export { default } from './add'
