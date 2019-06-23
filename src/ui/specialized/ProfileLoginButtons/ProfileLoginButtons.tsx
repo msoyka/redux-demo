@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import { IRootState } from 'data/rootReducer';
 import { IState as IProfileState } from 'data/profile';
 import { loginProfileAction, logoutProfileAction } from 'data/profile/actions';
-import ProfileCard from 'ui/specialized/ProfileCard';
 import ProgressIndicator from 'ui/generic/ProgressIndicator';
-import ErrorSnackbar from 'ui/generic/ErrorSnackbar';
 import {
   getProfile,
   getProfileLoading,
@@ -29,14 +27,6 @@ interface IDispatchProps {
 
 type ICombinedProps = IStoreProps & IDispatchProps;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
-  }),
-);
-
 const ProfileAuth = ({
   profileLoading,
   profile,
@@ -44,35 +34,32 @@ const ProfileAuth = ({
   loginProfile,
   logoutProfile,
 }: ICombinedProps) => {
-  const classes = useStyles();
-
   return (
-    <>
-      {profileLoading && <ProgressIndicator />}
-      {profileError && <ErrorSnackbar message={profileError.message} />}
-      {profile && <ProfileCard profile={profile} />}
-
-      <div>
-        <Button
-          disabled={profile !== null}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={loginProfile}
-        >
-          Login
-        </Button>
-        <Button
-          disabled={!profile}
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          onClick={logoutProfile}
-        >
-          Logout
-        </Button>
-      </div>
-    </>
+    <ButtonGroup
+      variant="contained"
+      color="secondary"
+      size="large"
+      aria-label="Large contained secondary button group"
+    >
+      <Button
+        disabled={profile !== null || profileLoading}
+        variant="contained"
+        color="primary"
+        onClick={loginProfile}
+      >
+        {profileLoading && <ProgressIndicator />}
+        {profileError && 'Error: '}
+        Login
+      </Button>
+      <Button
+        disabled={!profile || profileLoading}
+        variant="contained"
+        color="secondary"
+        onClick={logoutProfile}
+      >
+        Logout
+      </Button>
+    </ButtonGroup>
   );
 };
 
