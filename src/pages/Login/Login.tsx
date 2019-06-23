@@ -1,6 +1,7 @@
 // ==== @External ====
 import React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 // ==== @Material UI ====
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -56,6 +57,15 @@ const LoginPage = ({ profileLoading, profile, profileError }: IStoreProps) => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+        <Typography component="p">
+          <FormattedMessage
+            id="app.title"
+            defaultMessage="Welcome to {what}"
+            description="Welcome header on app main page"
+            values={{ what: 'My App' }}
+          />
+        </Typography>
+
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 
@@ -22,9 +22,6 @@ const useStyles = makeStyles(
       backgroundSize: 'cover',
       backgroundPosition: 'top center',
     },
-    contentPanel: {
-      // display: flex,
-    },
   }),
 );
 
@@ -43,7 +40,6 @@ const ImageWithContentFullHeightColumns = ({ children, imageURL }: IProps) => {
         xs={12}
         sm={8}
         md={5}
-        className={classes.contentPanel}
       >
         {children}
       </Grid>
